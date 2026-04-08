@@ -1,0 +1,8 @@
+[
+{
+  "directory": "E:/Projects CLion/DungeonRPG/cmake-build-debug",
+  "command": "\"D:\\Program Files\\JetBrains\\CLion 2025.3.3\\bin\\mingw\\bin\\g++.exe\" -g -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles\\DungeonRPG.dir\\DungeonRPG.cpp.obj -c \"E:\\Projects CLion\\DungeonRPG\\DungeonRPG.cpp\"",
+  "file": "E:/Projects CLion/DungeonRPG/DungeonRPG.cpp",
+  "output": "E:/Projects CLion/DungeonRPG/cmake-build-debug/CMakeFiles/DungeonRPG.dir/DungeonRPG.cpp.obj"
+}
+]
