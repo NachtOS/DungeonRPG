@@ -7,6 +7,8 @@
 
 class Item {
 public:
+    Item() = default;
+
     Item(std::string itemName, std::string itemType, int itemDamage, int itemHealAmount)
         : itemName(std::move(itemName)), itemType(std::move(itemType)), itemDamage(itemDamage), itemHealAmount(itemHealAmount) {}
 
