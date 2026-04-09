@@ -21,8 +21,19 @@ public:
         count++;
     }
 
+    void deleteItem(int index) {
+        delete items[index];
+
+        for (int i = index; i < count - 1; i++) {
+            items[i] = items[i + 1];
+        }
+
+        count--;
+    }
+
     void printAllItems() const {
         for (int i = 0; i < count; i++) {
+            std::cout << "\nCell №" << i << ": \n";
             items[i]->printInfo();
         }
     }
