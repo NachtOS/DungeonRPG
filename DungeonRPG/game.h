@@ -4,23 +4,26 @@
 #endif //DUNGEONRPG_GAME_H
 
 #include "character.h"
-
 #include <iostream>
+#include <ctime>
 
 class Game {
 public:
     Game() {
+        srand(time(0));
         player = new Player("Slayer", 150, 5, 0);
         enemies = new Enemy*[enemyCount];
 
-        enemies[0] = new Enemy("Goblin", "goblin", 40, 12, 30);
-        enemies[1] = new Enemy("Orc", "orc", 80, 20, 60);
+        enemies[0] = new Enemy("Goblin", "goblin", 40, 12, 30,25);
+        enemies[1] = new Enemy("Orc", "orc", 80, 20, 60, 35);
     }
 
     void playerStatus() {
         std::cout << "Name: " << player->getName()
                   << "\nDMG: " << player->attack()
-                  << "\nHP: " << player->getHealth() << "\n";
+                  << "\nHP: " << player->getHealth()
+                  << "\nLVL: " << player->getHealth()
+                  << "\n\n Gold: " << player->getGold();
     }
 
     void research() {
@@ -31,7 +34,7 @@ public:
     void fight(Enemy* enemy) {
         while (player->isAlive() && enemy->isAlive()) {
             std::cout << "\n+==== " << enemy->getName() << " Cave ====+\n"
-                      << "1 - Atack\n"
+                      << "1 - Attack\n"
                       << "2 - Use heal potion\n";
             int select = 0;
             std::cin >> select;
@@ -57,16 +60,25 @@ public:
                     else {
                         std::cout << "No potions!\n";
                     }
+
+                    player->getInventory()->deleteItem(index);
                     break;
             }
         }
 
         if (!player->isAlive()) {
             std::cout << "\nGame Over!\n";
-
-        } else {
+        }
+        else {
             std::cout << enemy->getName() << " defeated! +" << enemy->getGold() << " gold!\n";
             player->addGold(enemy->getGold());
+            player->addExperience(enemy->getGiveExp());
+            player->levelUp();
+            if (rand() % 2 == 0) {
+                player->getInventory()->addItem(new Item
+                ("Heal Potion", "potion", 0, 50));
+                std::cout << "You found a Heal Potion!\n";
+            }
         }
     }
 
