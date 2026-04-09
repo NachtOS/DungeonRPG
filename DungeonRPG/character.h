@@ -42,11 +42,15 @@ protected:
 
 class Enemy : public Character {
 public:
-    Enemy(std::string name, std::string enemyType, int maxHealth, int baseDamage, int gold)
-        : Character(std::move(name), maxHealth, baseDamage), enemyType(std::move(enemyType)), gold(gold) {}
+    Enemy(std::string name, std::string enemyType, int maxHealth, int baseDamage, int gold, int giveExp)
+        : Character(std::move(name), maxHealth, baseDamage), enemyType(std::move(enemyType)), gold(gold), giveExp(giveExp) {}
 
     int getGold() const {
         return gold;
+    }
+
+    int getGiveExp() {
+        return giveExp;
     }
 
     std::string getEnemyType() const {
@@ -62,6 +66,7 @@ public:
     }
 
 private:
+    int giveExp = 0;
     int gold = 0;
     std::string enemyType;
 };
@@ -84,15 +89,38 @@ public:
         gold += goldAmount;
     }
 
-    std::string getName() const {
-        return name;
-    }
-
     void playerHeal(int healAmount) {
         health += healAmount;
     }
 
-    int getGold() {
+    void addExperience(int experience) {
+        this->experience += experience;
+    }
+
+    void levelUp() {
+        if (level <= 5 && experience == 100) {
+            level++;
+            experience -= 100;
+        }
+        else if (level <= 10 && level > 5 && experience == 150) {
+            level++;
+            experience -= 150;
+        }
+        else if (level > 10 && experience == 200) {
+            level++;
+            experience -= 200;
+        }
+    }
+
+    std::string getName() const {
+        return name;
+    }
+
+    int getLevel() const {
+        return level;
+    }
+
+    int getGold() const {
         return gold;
     }
 
@@ -101,8 +129,10 @@ public:
     }
 
     ~Player() { delete inventory; }
-private:
 
+private:
+    int experience = 0;
+    int level = 0;
     int gold = 0;
     Inventory* inventory;
 };
