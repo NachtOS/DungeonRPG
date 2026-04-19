@@ -98,15 +98,15 @@ public:
     }
 
     void levelUp() {
-        if (level <= 5 && experience == 100) {
+        if (level <= 5 && experience >= 100) {
             level++;
             experience -= 100;
         }
-        else if (level <= 10 && level > 5 && experience == 150) {
+        else if (level <= 10 && level > 5 && experience >= 150) {
             level++;
             experience -= 150;
         }
-        else if (level > 10 && experience == 200) {
+        else if (level > 10 && experience >= 200) {
             level++;
             experience -= 200;
         }
@@ -122,6 +122,10 @@ public:
 
     int getGold() const {
         return gold;
+    }
+
+    int getExperince() const {
+        return experience;
     }
 
     int attack() override {
