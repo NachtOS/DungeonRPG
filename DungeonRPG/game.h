@@ -19,11 +19,12 @@ public:
     }
 
     void playerStatus() {
-        std::cout << "Name: " << player->getName()
-                  << "\nDMG: " << player->attack()
-                  << "\nHP: " << player->getHealth()
-                  << "\nLVL: " << player->getHealth()
-                  << "\n\n Gold: " << player->getGold();
+        std::cout << "Name:  " << player->getName()
+                  << "\nDMG:   " << player->attack()
+                  << "\nHP:    " << player->getHealth()
+                  << "\nLVL:   " << player->getLevel()
+                  << "\nEXP:   " << player->getExperince()
+                  << "\n\nGold:  " << player->getGold() << "\n";
     }
 
     void research() {
@@ -68,6 +69,7 @@ public:
 
         if (!player->isAlive()) {
             std::cout << "\nGame Over!\n";
+            running = false;
         }
         else {
             std::cout << enemy->getName() << " defeated! +" << enemy->getGold() << " gold!\n";
@@ -75,21 +77,19 @@ public:
             player->addExperience(enemy->getGiveExp());
             player->levelUp();
             if (rand() % 2 == 0) {
-                player->getInventory()->addItem(new Item
-                ("Heal Potion", "potion", 0, 50));
+                player->getInventory()->addItem(new Item("Heal Potion", "potion", 0, 50));
                 std::cout << "You found a Heal Potion!\n";
             }
         }
     }
 
     void start() {
-        bool running = true;
         do {
-            mainMenu(running);
+            mainMenu();
         } while (running);
     }
 
-    void mainMenu(bool& running) {
+    void mainMenu() {
         std::cout << "\n==== Menu ====\n"
                   << "1 - Research\n"
                   << "2 - Player status\n"
@@ -126,4 +126,5 @@ private:
     Player* player;
     Enemy** enemies;
     int enemyCount = 2;
+    bool running = true;
 };
