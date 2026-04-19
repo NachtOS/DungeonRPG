@@ -47,14 +47,15 @@ public:
     }
 
     ~Inventory() {
-        for (int i = 0; i < capacity; i++) {
+        for (int i = 0; i < count; i++) {
             delete items[i];
         }
 
         delete[] items;
     }
+
 private:
     Item** items;
-    int capacity = 0; // максимальное количество предметов
-    int count = 0; // кол-во предметов в инвентаре
+    int capacity = 0; 
+    int count = 0; 
 };
